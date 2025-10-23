@@ -16,7 +16,13 @@ npm install
 ```
 
 ### 2. Configurar Banco de Dados (Opcional para Desenvolvimento)
-Crie um arquivo `.env.local` na raiz do projeto com a URL do seu banco de dados PostgreSQL:
+Crie um arquivo `.env.local` na raiz do projeto com a URL do seu banco de dados PostgreSQL. Você pode usar o arquivo [.env.example](file://c:\Users\sergi\Downloads\inabalaveis-hymn-vote-main\inabalaveis-hymn-vote-main\.env.example) como referência:
+
+```bash
+cp .env.example .env.local
+```
+
+Em seguida, edite o arquivo `.env.local` com suas credenciais:
 
 ```env
 POSTGRES_URL=postgresql://usuario:senha@localhost:5432/nome_do_banco
@@ -89,11 +95,11 @@ scripts/
 
 ### Configuração Automática
 1. Conecte o repositório ao Vercel
-2. Configure a variável de ambiente `POSTGRES_URL` no dashboard da Vercel
+2. Configure as variáveis de ambiente necessárias no dashboard da Vercel (veja [VERCEL_DEPLOY.md](file://c:\Users\sergi\Downloads\inabalaveis-hymn-vote-main\inabalaveis-hymn-vote-main\VERCEL_DEPLOY.md) para detalhes)
 3. Faça o deploy automático
 
 ### Configuração Manual
-Consulte o arquivo [VERCEL_DEPLOY.md](VERCEL_DEPLOY.md) para instruções detalhadas de deploy.
+Consulte o arquivo [VERCEL_DEPLOY.md](file://c:\Users\sergi\Downloads\inabalaveis-hymn-vote-main\inabalaveis-hymn-vote-main\VERCEL_DEPLOY.md) para instruções detalhadas de deploy.
 
 ## Solução de Problemas
 
