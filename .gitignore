@@ -25,3 +25,7 @@ dist-ssr
 
 # Bun
 bun.lockb
+
+# Environment files
+.env*
+!.env.example
