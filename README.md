@@ -1,73 +1,87 @@
-# Welcome to your Lovable project
+# Hymn Voting Application
 
-## Project info
+Uma aplicação de votação para hinos com painel administrativo e integração com Supabase.
 
-**URL**: https://lovable.dev/projects/42f952d6-51b9-4d77-9f95-b853f7c30745
+## Funcionalidades
 
-## How can I edit this code?
+- Votação em hinos com interface amigável
+- Painel administrativo para gerenciar hinos, conteúdo e configurações
+- Integração com Supabase para autenticação e banco de dados
+- Design responsivo com Tailwind CSS
+- Geração de link público para votação
 
-There are several ways of editing your application.
+## Tecnologias Utilizadas
 
-**Use Lovable**
+- React com TypeScript
+- Vite como bundler
+- Supabase para backend (autenticação e banco de dados)
+- Tailwind CSS para estilização
+- shadcn/ui para componentes de interface
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/42f952d6-51b9-4d77-9f95-b853f7c30745) and start prompting.
+## Configuração do Ambiente
 
-Changes made via Lovable will be committed automatically to this repo.
+1. Clone o repositório
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
 
-**Use your preferred IDE**
+3. Configure as variáveis de ambiente no arquivo `.env`:
+   ```
+   VITE_SUPABASE_URL=sua_url_do_supabase
+   VITE_SUPABASE_PUBLISHABLE_KEY=sua_chave_publicavel_do_supabase
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+4. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Estrutura do Projeto
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/          # Componentes reutilizáveis
+├── hooks/               # Hooks personalizados
+├── integrations/        # Integrações com serviços externos
+├── lib/                 # Funções utilitárias
+├── pages/               # Páginas da aplicação
+└── App.tsx             # Componente principal
 ```
 
-**Edit a file directly in GitHub**
+## Deploy
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Vercel
 
-**Use GitHub Codespaces**
+1. Conecte seu repositório ao Vercel
+2. Configure as variáveis de ambiente no dashboard do Vercel
+3. Faça deploy automático em cada push
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Outras plataformas
 
-## What technologies are used for this project?
+O projeto pode ser construído usando:
+```bash
+npm run build
+```
 
-This project is built with:
+E o resultado estará na pasta `dist/`.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Uso
 
-## How can I deploy this project?
+1. Acesse o painel administrativo em `/admin`
+2. Faça login com credenciais de administrador
+3. Configure os hinos, conteúdo da página e banner
+4. Gere o link público para votação
+5. Compartilhe o link com os usuários
 
-Simply open [Lovable](https://lovable.dev/projects/42f952d6-51b9-4d77-9f95-b853f7c30745) and click on Share -> Publish.
+## Contribuição
 
-## Can I connect a custom domain to my Lovable project?
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
-Yes, you can!
+## Licença
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Este projeto é de código aberto e não possui licença específica.
