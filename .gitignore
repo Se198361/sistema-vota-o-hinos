@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dependencies
 node_modules/
 .env.local
@@ -7,18 +8,39 @@ dist/
 build/
 
 # Logs
+=======
+# Logs
+logs
+*.log
+>>>>>>> c4f3775acd899678286e6cbaace46920e1a0a4d8
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+<<<<<<< HEAD
 
 # Editor directories and files
 .vscode/
 .idea/
+=======
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+>>>>>>> c4f3775acd899678286e6cbaace46920e1a0a4d8
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+<<<<<<< HEAD
 *.sw*
 
 # OS
@@ -44,3 +66,13 @@ coverage/
 
 # Misc
 *.log
+=======
+*.sw?
+
+# Bun
+bun.lockb
+
+# Environment files
+.env*
+!.env.example
+>>>>>>> c4f3775acd899678286e6cbaace46920e1a0a4d8
