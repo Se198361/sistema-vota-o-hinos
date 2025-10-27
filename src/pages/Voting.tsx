@@ -241,7 +241,20 @@ const Voting = () => {
           hymn_id: hymnId,
           voter_ip: voterIp,
         });
-        if (legacyInsertError) throw legacyInsertError;
+        if (legacyInsertError) {
+          const code = (legacyInsertError as any)?.code;
+          if (code === '23505') {
+            setHasVoted(true);
+            localStorage.setItem(`hasVoted_${currentCampaignId}`, "true");
+            toast({
+              title: "Você já votou!",
+              description: "Cada pessoa pode votar apenas uma vez nesta campanha.",
+              variant: "destructive",
+            });
+            return;
+          }
+          throw legacyInsertError;
+        }
       } else {
         const { error: insertError } = await supabase.from("votes").insert({
           hymn_id: hymnId,
@@ -257,7 +270,29 @@ const Voting = () => {
               hymn_id: hymnId,
               voter_ip: voterIp,
             });
-            if (legacyInsertError) throw legacyInsertError;
+            if (legacyInsertError) {
+              const legacyCode = (legacyInsertError as any)?.code;
+              if (legacyCode === '23505') {
+                setHasVoted(true);
+                localStorage.setItem(`hasVoted_${currentCampaignId}`, "true");
+                toast({
+                  title: "Você já votou!",
+                  description: "Cada pessoa pode votar apenas uma vez nesta campanha.",
+                  variant: "destructive",
+                });
+                return;
+              }
+              throw legacyInsertError;
+            }
+          } else if (code === '23505') {
+            setHasVoted(true);
+            localStorage.setItem(`hasVoted_${currentCampaignId}`, "true");
+            toast({
+              title: "Você já votou!",
+              description: "Cada pessoa pode votar apenas uma vez nesta campanha.",
+              variant: "destructive",
+            });
+            return;
           } else {
             throw insertError;
           }
