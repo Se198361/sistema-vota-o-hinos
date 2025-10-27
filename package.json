@@ -8,7 +8,8 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prebuild": "npm ci --include=optional || npm install --include=optional"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -81,5 +82,8 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
     "vite": "^5.4.19"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
