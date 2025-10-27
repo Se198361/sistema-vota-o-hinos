@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { Loader2 } from "lucide-react";
+import Logo from "@/components/Logo";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -73,6 +74,9 @@ const Auth = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center p-4">
       <Card className="w-full max-w-md p-8 space-y-6 bg-card border-2 border-border">
         <div className="text-center space-y-2">
+          <div className="flex justify-center mb-4">
+            <Logo width={80} height={80} />
+          </div>
           <h1 className="text-3xl font-bold text-foreground">
             Painel Administrativo
           </h1>

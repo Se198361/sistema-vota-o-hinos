@@ -12,6 +12,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import html2canvas from "html2canvas";
+import Logo from "@/components/Logo";
 
 interface Hymn {
   id: string;
@@ -39,6 +40,7 @@ const Admin = () => {
   const [isUploadingBanner, setIsUploadingBanner] = useState(false);
   const [votingEnabled, setVotingEnabled] = useState(true);
   const [publicVotingLink, setPublicVotingLink] = useState("");
+  const [currentCampaignId, setCurrentCampaignId] = useState("");
   const resultsRef = useRef<HTMLDivElement>(null);
 
   // Page content states with initial empty values
@@ -103,8 +105,9 @@ const Admin = () => {
         (hymnsData || []).map(async (hymn) => {
           const { count, error } = await supabase
             .from("votes")
-            .select("*", { count: "exact", head: true })
-            .eq("hymn_id", hymn.id);
+            .select("id", { count: "exact" })
+            .eq("hymn_id", hymn.id)
+            .limit(1);
 
           if (error) throw error;
 
@@ -366,6 +369,10 @@ const Admin = () => {
     }
   };
 
+  const generateCampaignId = () => {
+    return `campaign_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  };
+
   const generatePublicVotingLink = () => {
     // Check if all required fields are filled
     const isContentComplete = pageTitle.trim() && pageSubtitle.trim() && pageDescription.trim();
@@ -381,8 +388,12 @@ const Admin = () => {
       return null;
     }
     
-    // Generate the public voting link
-    const link = `${window.location.origin}`;
+    // Generate new campaign ID
+    const campaignId = generateCampaignId();
+    setCurrentCampaignId(campaignId);
+    
+    // Generate the public voting link with campaign ID
+    const link = `${window.location.origin}?campaign=${campaignId}`;
     setPublicVotingLink(link);
     return link;
   };
@@ -507,14 +518,17 @@ const Admin = () => {
               </Button>
             </div>
             
-            <Button
-              onClick={handlePrint}
-              variant="secondary"
-              className="gap-2 print:hidden"
-            >
-              <Printer className="w-4 h-4" />
-              Imprimir
-            </Button>
+            <div className="flex items-center gap-3">
+              <Logo width={60} height={60} />
+              <Button
+                onClick={handlePrint}
+                variant="secondary"
+                className="gap-2 print:hidden"
+              >
+                <Printer className="w-4 h-4" />
+                Imprimir
+              </Button>
+            </div>
           </div>
           
           <h1 className="text-3xl md:text-4xl font-bold text-center">
@@ -921,15 +935,22 @@ const Admin = () => {
               <div className="space-y-4">
                 <p className="text-muted-foreground">
                   Após preencher todos os campos (Hinos Cadastrados, Conteúdo da Página e Banner do Rodapé), 
-                  gere um link público para que os usuários possam votar.
+                  gere um link público para que os usuários possam votar. Cada link criado representa uma nova campanha independente.
                 </p>
+                
+                {currentCampaignId && (
+                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-sm font-medium text-blue-800 mb-1">Campanha Atual:</p>
+                    <p className="text-sm text-blue-600 font-mono">{currentCampaignId}</p>
+                  </div>
+                )}
                 
                 <div className="flex gap-2">
                   <Button 
                     onClick={generatePublicVotingLink}
                     className="flex-1"
                   >
-                    Gerar Link Público
+                    Gerar Nova Campanha
                   </Button>
                   
                   {publicVotingLink && (
@@ -945,8 +966,11 @@ const Admin = () => {
                 
                 {publicVotingLink && (
                   <div className="mt-4 p-4 bg-muted rounded-lg">
-                    <p className="text-sm font-medium mb-2">Link Público:</p>
+                    <p className="text-sm font-medium mb-2">Link Público da Campanha:</p>
                     <p className="text-sm break-all text-primary">{publicVotingLink}</p>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      Cada IP pode votar apenas uma vez por campanha. Gere um novo link para criar uma campanha independente.
+                    </p>
                   </div>
                 )}
               </div>

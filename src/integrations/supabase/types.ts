@@ -106,18 +106,21 @@ export type Database = {
       }
       votes: {
         Row: {
+          campaign_id: string
           created_at: string
           hymn_id: string
           id: string
           voter_ip: string
         }
         Insert: {
+          campaign_id?: string
           created_at?: string
           hymn_id: string
           id?: string
           voter_ip: string
         }
         Update: {
+          campaign_id?: string
           created_at?: string
           hymn_id?: string
           id?: string
