@@ -5,7 +5,6 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/sistema-vota-o-hinos/",
   server: {
     host: "::",
     port: 8080,
