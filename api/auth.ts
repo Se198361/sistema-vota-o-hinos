@@ -55,7 +55,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: any, res: any) {
   // Lidar com preflight requests
   if (req.method === 'OPTIONS') {
     res.writeHead(200, corsHeaders);
