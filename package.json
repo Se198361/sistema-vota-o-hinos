@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prebuild": "npm ci --include=optional || npm install --include=optional"
+    "prebuild": "echo prebuild skipped on Vercel",
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

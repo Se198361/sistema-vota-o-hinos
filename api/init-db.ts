@@ -1,4 +1,3 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
 
