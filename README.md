@@ -1,217 +1,82 @@
-<<<<<<< HEAD
-# Hymn Voting Application
+# Sistema de Votação de Hinos
 
-Uma aplicação de votação para hinos com painel administrativo e integração com Supabase.
+Aplicação de votação de hinos com painel administrativo, integrada ao Supabase, construída em React + Vite.
 
 ## Funcionalidades
-
-- Votação em hinos com interface amigável
+- Votar em hinos com interface simples e responsiva
 - Painel administrativo para gerenciar hinos, conteúdo e configurações
-- Integração com Supabase para autenticação e banco de dados
-- Design responsivo com Tailwind CSS
-- Geração de link público para votação
+- Resultados em tempo real e geração de link público
 
-## Tecnologias Utilizadas
+## Tecnologias
+- React + TypeScript
+- Vite
+- Supabase (auth, banco de dados, storage)
+- Tailwind CSS
+- shadcn/ui
 
-- React com TypeScript
-- Vite como bundler
-- Supabase para backend (autenticação e banco de dados)
-- Tailwind CSS para estilização
-- shadcn/ui para componentes de interface
-
-## Configuração do Ambiente
-
-1. Clone o repositório
-2. Instale as dependências:
+## Ambiente
+1. Instalar dependências:
    ```bash
    npm install
    ```
-
-3. Configure as variáveis de ambiente no arquivo `.env`:
+2. Variáveis de ambiente (crie `.env.local`):
    ```
-   VITE_SUPABASE_URL=sua_url_do_supabase
-   VITE_SUPABASE_PUBLISHABLE_KEY=sua_chave_publicavel_do_supabase
+   VITE_SUPABASE_URL=https://seu-projeto.supabase.co
+   VITE_SUPABASE_PUBLISHABLE_KEY=sua_chave_anonima
    ```
-
-4. Inicie o servidor de desenvolvimento:
+   Opcional (somente se usar rotas Node em `/api`):
+   ```
+   POSTGRES_URL=postgres://...:6543/postgres?sslmode=require
+   ```
+3. Desenvolvimento:
    ```bash
    npm run dev
    ```
-=======
-# Sistema de Votação de Hinos - 4º Congresso de Homens
-
-## Descrição
-Sistema de votação de hinos para o 4º Congresso de Homens com tema "Homens Inabaláveis, Firmes em Cristo em um Mundo Caído".
-
-## Requisitos do Sistema
-- Node.js (versão 16 ou superior)
-- PostgreSQL (opcional para desenvolvimento local)
-- npm ou yarn
-
-## Configuração Inicial
-
-### 1. Instalar Dependências
-```bash
-npm install
-```
-
-### 2. Configurar Banco de Dados (Opcional para Desenvolvimento)
-Crie um arquivo `.env.local` na raiz do projeto com a URL do seu banco de dados PostgreSQL. Você pode usar o arquivo [.env.example](file://c:\Users\sergi\Downloads\inabalaveis-hymn-vote-main\inabalaveis-hymn-vote-main\.env.example) como referência:
-
-```bash
-cp .env.example .env.local
-```
-
-Em seguida, edite o arquivo `.env.local` com suas credenciais:
-
-```env
-POSTGRES_URL=postgresql://usuario:senha@localhost:5432/nome_do_banco
-```
-
-**Nota**: Para desenvolvimento local, o sistema usa uma API mock que não requer banco de dados.
-
-### 3. Inicializar o Banco de Dados (Apenas se estiver usando PostgreSQL)
-```bash
-npm run init-db
-```
-
-Este comando irá:
-- Criar as tabelas necessárias (usuários e hinos)
-- Criar um usuário administrador padrão (usuário: admin, senha: inabalaveis2025)
-
-## Executar o Projeto Localmente
-
-### Modo de Desenvolvimento
-```bash
-npm run dev
-```
-
-O projeto estará disponível em `http://localhost:8080`
-
-**Nota**: O sistema agora inclui uma API mock para desenvolvimento, então você pode criar contas e fazer login mesmo sem configurar o PostgreSQL.
-
-### Build para Produção
-```bash
-npm run build
-```
-
-### Visualizar Build de Produção
-```bash
-npm run preview
-```
->>>>>>> c4f3775acd899678286e6cbaace46920e1a0a4d8
+4. Build de produção:
+   ```bash
+   npm run build
+   npm run preview
+   ```
 
 ## Estrutura do Projeto
-
 ```
 src/
-<<<<<<< HEAD
-├── components/          # Componentes reutilizáveis
-├── hooks/               # Hooks personalizados
-├── integrations/        # Integrações com serviços externos
-├── lib/                 # Funções utilitárias
-├── pages/               # Páginas da aplicação
-└── App.tsx             # Componente principal
+  ├── components/    # Componentes reutilizáveis
+  ├── pages/         # Páginas da aplicação
+  ├── hooks/         # Hooks personalizados
+  ├── integrations/  # Integrações externas (Supabase)
+  ├── lib/           # Utilitários
+  └── mocks/         # API mock para desenvolvimento
+api/
+  ├── auth.ts        # Endpoints de autenticação (opcional)
+scripts/
+  └── init-db.js     # Inicialização de banco (opcional)
 ```
 
-## Deploy
+## Deploy na Vercel (resumo)
+- Node.js: `20.x` (Project Settings)
+- Build: `npm run build`
+- Output: `dist`
+- Variáveis: `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` (e `POSTGRES_URL` se usar `/api`)
+- SPA rewrites: já definido em `vercel.json`
+- Detalhes completos: ver `VERCEL_DEPLOY.md`
 
-### Vercel
-
-1. Conecte seu repositório ao Vercel
-2. Configure as variáveis de ambiente no dashboard do Vercel
-3. Faça deploy automático em cada push
-
-### Outras plataformas
-
-O projeto pode ser construído usando:
-```bash
-npm run build
-```
-
-E o resultado estará na pasta `dist/`.
+## Supabase
+- Aplique as migrações em `supabase/migrations/`
+- Configure o bucket `banners` e políticas de acesso
+- Garanta as RLS conforme migrações (leitura pública de `hymns`/`settings`, inserção pública em `votes`, etc.)
 
 ## Uso
-
-1. Acesse o painel administrativo em `/admin`
-2. Faça login com credenciais de administrador
-3. Configure os hinos, conteúdo da página e banner
-4. Gere o link público para votação
-5. Compartilhe o link com os usuários
-
-## Contribuição
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## Licença
-
-Este projeto é de código aberto e não possui licença específica.
-=======
-  ├── components/     # Componentes reutilizáveis
-  ├── pages/          # Páginas da aplicação
-  ├── hooks/          # Hooks personalizados
-  ├── mocks/          # API mocks para desenvolvimento
-  └── lib/            # Funções utilitárias
-
-api/
-  └── auth.ts         # Endpoints de autenticação
-
-scripts/
-  └── init-db.js      # Script de inicialização do banco de dados
-```
-
-## Funcionalidades
-
-### Para Usuários Comuns
-- Visualizar hinos disponíveis
-- Votar em hinos
-- Ver vídeos relacionados aos hinos
-
-### Para Administradores
-- Registrar/Login no sistema
-- Visualizar resultados em tempo real
-- Adicionar novos hinos
-- Configurar informações do congresso
-- Imprimir/exportar resultados
-
-## Deploy na Vercel
-
-### Configuração Automática
-1. Conecte o repositório ao Vercel
-2. Configure as variáveis de ambiente necessárias no dashboard da Vercel (veja [VERCEL_DEPLOY.md](file://c:\Users\sergi\Downloads\inabalaveis-hymn-vote-main\inabalaveis-hymn-vote-main\VERCEL_DEPLOY.md) para detalhes)
-3. Faça o deploy automático
-
-### Configuração Manual
-Consulte o arquivo [VERCEL_DEPLOY.md](file://c:\Users\sergi\Downloads\inabalaveis-hymn-vote-main\inabalaveis-hymn-vote-main\VERCEL_DEPLOY.md) para instruções detalhadas de deploy.
+- Admin: acesse `/admin`, faça login e configure hinos, conteúdo e banner
+- Gere o link público na aba de configurações e compartilhe
+- Usuários: acessem o link público e votem (1 voto por usuário)
 
 ## Solução de Problemas
-
-### Erro de Conexão ao Criar Conta
-Se você estiver recebendo o erro "Erro de conexão. Verifique se o servidor está rodando" ao criar uma conta:
-
-1. **Para desenvolvimento local**: O sistema agora usa uma API mock, então você pode criar contas mesmo sem configurar o PostgreSQL
-2. **Para produção**: Certifique-se de que o PostgreSQL está instalado e em execução
-3. Verifique se a variável de ambiente `POSTGRES_URL` está corretamente configurada
-4. Execute `npm run init-db` para inicializar o banco de dados
-
-### Problemas com o Banco de Dados
-1. Certifique-se de que o PostgreSQL está instalado e rodando
-2. Verifique as credenciais do banco de dados no arquivo `.env.local`
-3. Execute o script de inicialização: `npm run init-db`
-
-## Segurança
-- Em produção, as senhas devem ser hasheadas usando bcrypt
-- O token de autenticação é armazenado no localStorage (para ambientes de desenvolvimento)
-- Em produção, recomenda-se usar tokens JWT mais seguros
+- Erros de deploy: revise `VERCEL_DEPLOY.md` (Node 20, env vars, rewrites)
+- Supabase: confirme URL/anon key, migrações e políticas aplicadas
 
 ## Contribuição
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nome-da-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nome-da-feature`)
-5. Abra um Pull Request
->>>>>>> c4f3775acd899678286e6cbaace46920e1a0a4d8
+1. Crie uma branch: `git checkout -b feature/minha-feature`
+2. Commit: `git commit -m "feat: minha feature"`
+3. Push: `git push origin feature/minha-feature`
+4. Abra um Pull Request
