@@ -2,6 +2,13 @@
 
 Aplicação de votação de hinos com painel administrativo, integrada ao Supabase, construída em React + Vite.
 
+## Checklist Rápido (Deploy do Zero)
+- Configurar `Node 20.x` no projeto da Vercel
+- Adicionar `VITE_SUPABASE_URL` e `VITE_SUPABASE_PUBLISHABLE_KEY` nas variáveis
+- Build `npm run build` com output `dist`
+- Confirmar rewrites SPA no `vercel.json`
+- Aplicar migrações do Supabase em `supabase/migrations`
+
 ## Funcionalidades
 - Votar em hinos com interface simples e responsiva
 - Painel administrativo para gerenciar hinos, conteúdo e configurações
