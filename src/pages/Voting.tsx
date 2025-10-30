@@ -122,23 +122,18 @@ const Voting = () => {
         .limit(1);
 
       if (error) {
-        const code = (error as any)?.code;
-        const message = (error as any)?.message || "";
-        if (code === '42703' || message.includes('column') && message.includes('campaign_id')) {
-          setCampaignSupported(false);
-          const { count: legacyCount, error: legacyError } = await supabase
-            .from("votes")
-            .select("id", { count: "exact" })
-            .eq("voter_ip", ip)
-            .limit(1);
-          if (legacyError) throw legacyError;
-          const voted = (legacyCount || 0) > 0;
-          setHasVoted(voted);
-          if (voted) localStorage.setItem(`hasVoted_${campaignId}`, "true");
-          return;
-        }
-        // Other errors: fallback to localStorage
-        throw error;
+        // Qualquer erro ao consultar com campaign_id cai para o modo legado (IP-only)
+        setCampaignSupported(false);
+        const { count: legacyCount, error: legacyError } = await supabase
+          .from("votes")
+          .select("id", { count: "exact", head: true })
+          .eq("voter_ip", ip)
+          .limit(1);
+        if (legacyError) throw legacyError;
+        const voted = (legacyCount || 0) > 0;
+        setHasVoted(voted);
+        if (voted) localStorage.setItem(`hasVoted_${campaignId}`, "true");
+        return;
       }
 
       const voted = (count || 0) > 0;
@@ -200,28 +195,23 @@ const Voting = () => {
           .eq("campaign_id", currentCampaignId)
           .limit(1);
         if (checkError) {
-          const code = (checkError as any)?.code;
-          const message = (checkError as any)?.message || "";
-          if (code === '42703' || message.includes('column') && message.includes('campaign_id')) {
-            setCampaignSupported(false);
-            const { count: ipOnlyCount, error: ipOnlyError } = await supabase
-              .from("votes")
-              .select("*", { count: "exact", head: true })
-              .eq("voter_ip", voterIp)
-              .limit(1);
-            if (ipOnlyError) throw ipOnlyError;
-            if ((ipOnlyCount || 0) > 0) {
-              setHasVoted(true);
-              localStorage.setItem(`hasVoted_${currentCampaignId}`, "true");
-              toast({
-                title: "Você já votou!",
-                description: "Cada pessoa pode votar apenas uma vez nesta campanha.",
-                variant: "destructive",
-              });
-              return;
-            }
-          } else {
-            throw checkError;
+          // Qualquer erro com campaign_id: desabilita suporte e volta ao modo IP-only
+          setCampaignSupported(false);
+          const { count: ipOnlyCount, error: ipOnlyError } = await supabase
+            .from("votes")
+            .select("*", { count: "exact", head: true })
+            .eq("voter_ip", voterIp)
+            .limit(1);
+          if (ipOnlyError) throw ipOnlyError;
+          if ((ipOnlyCount || 0) > 0) {
+            setHasVoted(true);
+            localStorage.setItem(`hasVoted_${currentCampaignId}`, "true");
+            toast({
+              title: "Você já votou!",
+              description: "Cada pessoa pode votar apenas uma vez nesta campanha.",
+              variant: "destructive",
+            });
+            return;
           }
         } else if ((existingVotes || 0) > 0) {
           setHasVoted(true);
@@ -262,49 +252,34 @@ const Voting = () => {
           campaign_id: currentCampaignId,
         });
         if (insertError) {
-          const code = (insertError as any)?.code;
-          const message = (insertError as any)?.message || "";
-          if (code === '42703' || message.includes('column') && message.includes('campaign_id')) {
-            setCampaignSupported(false);
-            const { error: legacyInsertError } = await supabase.from("votes").insert({
-              hymn_id: hymnId,
-              voter_ip: voterIp,
-            });
-            if (legacyInsertError) {
-              const legacyCode = (legacyInsertError as any)?.code;
-              if (legacyCode === '23505') {
-                setHasVoted(true);
-                localStorage.setItem(`hasVoted_${currentCampaignId}`, "true");
-                toast({
-                  title: "Você já votou!",
-                  description: "Cada pessoa pode votar apenas uma vez nesta campanha.",
-                  variant: "destructive",
-                });
-                return;
-              }
-              throw legacyInsertError;
+          // Qualquer erro ao inserir com campaign_id: tentar modo legado
+          setCampaignSupported(false);
+          const { error: legacyInsertError } = await supabase.from("votes").insert({
+            hymn_id: hymnId,
+            voter_ip: voterIp,
+          });
+          if (legacyInsertError) {
+            const legacyCode = (legacyInsertError as any)?.code;
+            if (legacyCode === '23505') {
+              setHasVoted(true);
+              localStorage.setItem(`hasVoted_${currentCampaignId}`, "true");
+              toast({
+                title: "Você já votou!",
+                description: "Cada pessoa pode votar apenas uma vez nesta campanha.",
+                variant: "destructive",
+              });
+              return;
             }
-          } else if (code === '23505') {
-            setHasVoted(true);
-            localStorage.setItem(`hasVoted_${currentCampaignId}`, "true");
-            toast({
-              title: "Você já votou!",
-              description: "Cada pessoa pode votar apenas uma vez nesta campanha.",
-              variant: "destructive",
-            });
-            return;
-          } else {
-            throw insertError;
+            throw legacyInsertError;
           }
         }
       }
 
       setHasVoted(true);
       localStorage.setItem(`hasVoted_${currentCampaignId}`, "true");
-
       toast({
-        title: "Voto registrado!",
-        description: "Obrigado por participar da votação!",
+        title: "Voto computado!",
+        description: "Obrigado por participar.",
       });
     } catch (error) {
       console.error("Error voting:", error);
