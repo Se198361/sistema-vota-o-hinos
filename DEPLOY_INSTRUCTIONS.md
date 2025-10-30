@@ -38,6 +38,14 @@ VITE_SUPABASE_URL=seu_url_do_supabase
 VITE_SUPABASE_PUBLISHABLE_KEY=sua_chave_publicavel_do_supabase
 ```
 
+### Resumo de Configuração na Vercel
+- Node.js: configure `20.x` em Project Settings.
+- Install Command: padrão da Vercel (ou `bun install`).
+- Build Command: `npm run build`.
+- Output Directory: `dist`.
+- SPA Rewrites: já configurado em `vercel.json` (destination `index.html`).
+- Detalhes completos: consulte `VERCEL_DEPLOY.md`.
+
 ## Configuração do Supabase
 
 1. Crie um projeto no [Supabase](https://supabase.com/)
