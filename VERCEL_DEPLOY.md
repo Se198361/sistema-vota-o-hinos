@@ -7,16 +7,14 @@
 Para o correto funcionamento do sistema em produção, configure as seguintes variáveis de ambiente no dashboard da Vercel:
 
 ```
-POSTGRES_URL=postgres://postgres.cmaqkqeluczljyduzcvx:42t5D46243xZgigi@aws-1-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&pgbouncer=true
-POSTGRES_PRISMA_URL=postgres://postgres.cmaqkqeluczljyduzcvx:42t5D46243xZgigi@aws-1-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&pgbouncer=true
-POSTGRES_URL_NON_POOLING=postgres://postgres.cmaqkqeluczljyduzcvx:42t5D46243xZgigi@aws-1-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require
-SUPABASE_URL=https://cmaqkqeluczljyduzcvx.supabase.co
-NEXT_PUBLIC_SUPABASE_URL=https://cmaqkqeluczljyduzcvx.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtYXFrcWVsdWN6bGp5ZHV6Y3Z4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEyMzU0MTQsImV4cCI6MjA3NjgxMTQxNH0.0Z6S55vDCMhVZnP3STYPB6T9SZWLNfoHe88zYK3q21o
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtYXFrcWVsdWN6bGp5ZHV6Y3Z4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEyMzU0MTQsImV4cCI6MjA3NjgxMTQxNH0.0Z6S55vDCMhVZnP3STYPB6T9SZWLNfoHe88zYK3q21o
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtYXFrcWVsdWN6bGp5ZHV6Y3Z4Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTIzNTQxNCwiZXhwIjoyMDc2ODExNDE0fQ.yYZNGec6Jj_ZdEltnGcFisp1DWXR0YectjQYcX69zHs
-SUPABASE_JWT_SECRET=+7uEbNIQlQSuB/vzCcDK61XSWmOSShXk0kWMKIcpMCWaB4H+3tU+tyrNGtTDc87li8XJspaG+OBlSWuDWK0hbQ==
+VITE_SUPABASE_URL=https://<seu-projeto>.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=<sua_chave_anon_do_supabase>
+# Opcional (apenas se usar as rotas Node em /api):
+POSTGRES_URL=postgres://...:6543/postgres?sslmode=require
 ```
+
+Nota: configure a versão de Node para `20.x` nas configurações do projeto na Vercel.
+
 
 ### 2. Configuração do Banco de Dados
 
