@@ -104,7 +104,7 @@ const Voting = () => {
       if (!campaignSupported) {
         const { count: legacyCount, error: legacyError } = await supabase
           .from("votes")
-          .select("id", { count: "exact" })
+          .select("*", { count: "exact", head: true })
           .eq("voter_ip", ip)
           .limit(1);
         if (legacyError) throw legacyError;
@@ -116,7 +116,7 @@ const Voting = () => {
 
       const { count, error } = await supabase
         .from("votes")
-        .select("id", { count: "exact" })
+        .select("*", { count: "exact", head: true })
         .eq("voter_ip", ip)
         .eq("campaign_id", campaignId)
         .limit(1);
@@ -178,7 +178,7 @@ const Voting = () => {
       if (!campaignSupported) {
         const { count: ipOnlyCount, error: ipOnlyError } = await supabase
           .from("votes")
-          .select("id", { count: "exact" })
+          .select("*", { count: "exact", head: true })
           .eq("voter_ip", voterIp)
           .limit(1);
         if (ipOnlyError) throw ipOnlyError;
@@ -195,7 +195,7 @@ const Voting = () => {
       } else {
         const { count: existingVotes, error: checkError } = await supabase
           .from("votes")
-          .select("id", { count: "exact" })
+          .select("*", { count: "exact", head: true })
           .eq("voter_ip", voterIp)
           .eq("campaign_id", currentCampaignId)
           .limit(1);
@@ -206,7 +206,7 @@ const Voting = () => {
             setCampaignSupported(false);
             const { count: ipOnlyCount, error: ipOnlyError } = await supabase
               .from("votes")
-              .select("id", { count: "exact" })
+              .select("*", { count: "exact", head: true })
               .eq("voter_ip", voterIp)
               .limit(1);
             if (ipOnlyError) throw ipOnlyError;

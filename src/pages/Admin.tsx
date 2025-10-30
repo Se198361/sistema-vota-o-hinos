@@ -105,7 +105,7 @@ const Admin = () => {
         (hymnsData || []).map(async (hymn) => {
           const { count, error } = await supabase
             .from("votes")
-            .select("id", { count: "exact" })
+            .select("*", { count: "exact", head: true })
             .eq("hymn_id", hymn.id)
             .limit(1);
 
